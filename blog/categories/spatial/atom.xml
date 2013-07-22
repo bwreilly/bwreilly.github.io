@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: spatial | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/spatial/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-21T19:20:18-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spatial correction using a particle filter]]></title>
+    <link href="http://bwreilly.github.io/blog/2012/02/07/spatial-correction-using-a-particle-filter/"/>
+    <updated>2012-02-07T18:50:00-08:00</updated>
+    <id>http://bwreilly.github.io/blog/2012/02/07/spatial-correction-using-a-particle-filter</id>
+    <content type="html"><![CDATA[<p><div class="posterous_autopost">
+<h2>
+The Problem &ndash; old data, important data</h2>
+Some of the most important spatial data is old. It was built up and maintained over decades by paper and early computer systems, and it represents power lines, roads, water pipes, and property lines. It would be good to know the precise location of this stuff.
+The PLC power system was designed on in-house drawn lotlines. Today, the difference between those lotlines and the actual parcel locations is as much as 100ft, and in no consistent direction. What follows are attempts to correct the location of more than 20,000 structures without doing a significant portion by hand, using some techniques picked up in Stanford&rsquo;s Free AI class.
+<h2>
+The correct location is the &ldquo;Hidden&rdquo; bit</h2>
+Education in some very advanced and useful algorithms are now within the grasp of anyone with an internet connection and a decade old computer. More than a hundred thousand participated in the recently completed Stanford AI course, including myself. One particular technique caught my eye:
+<iframe float="center" frameborder="0" height="315" src="http://www.youtube.com/embed/H0G1yslM5rc?rel=0" width="560"></iframe>
+The problem being solved above is one of location &ndash; that is the hidden variable that needs to be estimated in continuous space. Why couldn&rsquo;t I do something similar for static assets like poles and underground vaults? With enough control points I could then move everything else relative to them (inverse distance weighted rubbersheeting) and vastly improve the data.
+<h2>
+A Naive Approach</h2>
+I wanted to start with the simplest possible implementation. I loaded the lotlines (old, hand-drawn), parcel polygons, and the poles into PostGIS. I then converted the lines and polygons to points, and decided to use the total sum distance as the mechanism for comparing candidate particles to the poles.
+Again, very naive (and the data is too noisy for it to work), but it served a purpose &ndash; getting everything set up for my next iteration: comparing candidates based on tangent and distance as the robot sensors above undoubtebly do.
+<div style="font-size: 10px;">
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

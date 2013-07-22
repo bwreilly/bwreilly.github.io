@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: geoprocessing | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/geoprocessing/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-21T19:20:18-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Geometric Network Geoprocessing]]></title>
+    <link href="http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing/"/>
+    <updated>2010-07-21T19:04:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing</id>
+    <content type="html"><![CDATA[<p><div class="posterous_autopost">
+I&rsquo;ve been hammering away at a GIS migration project that has been going  on far longer than anyone expected it might take, but I&rsquo;ve gotten the opportunity to hack away at some Python to more or less fix a problem I found on <a href="http://www.thegisforum.com/forums/t/7672.aspx">TheGISForum</a>:</p>
+
+<p><blockquote class="posterous_medium_quote">
+I  currently have a geometric network that I&rsquo;ve been working with  using  the Utility Network Analyst tools. However, I&rsquo;ve been trying to  perform  a few tasks that I&rsquo;ve noticed the Network Analyst tools provide,  but  the Utility Network Analyst does not.
+Specifically, I want to  place barriers at all locations specified by a  point feature class &ndash; a  functionality provided by the &ldquo;Add Locations&rdquo;  tool in the Network  Analyst Toolset.
+Is there a way to use the network analyst tools  on a geometric network?</blockquote></p>
+
+<p>The answer, sadly, is no. As far as I can tell, ESRI has not released any geoprocessing  tools for their Geometric Network.
+But it is possible to roll-your-own  solution to get the same kind of tools by using existing open source  libraries. I have a <a href="http://bitbucket.org/gallipoli/utilitynetwork/">work-in-progress project</a> along these exact lines.</p>
+]]></content>
+  </entry>
+  
+</feed>

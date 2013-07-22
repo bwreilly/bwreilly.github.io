@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: documentation | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/documentation/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-21T19:20:18-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Tracing for Water Quality Assessment]]></title>
+    <link href="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/"/>
+    <updated>2013-07-21T19:09:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment</id>
+    <content type="html"><![CDATA[<p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
+
+<p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
+
+<p>As far as I can tell, the corporate standard for documentation is Microsoft Word documents. At best, these have a relatively easy to navigate table of contents and the document is stored at the same location as the topic. At worst, it has neither attribute or doesn&rsquo;t exist &ndash; there is no practical difference between those two situations really. No one will ever find them &ndash; which for development projects is especially problematic.</p>
+
+<p>The Don&rsquo;t Repeat Yourself (DRY) principle applies outside single projects. There were some things I really wanted for the documentation I was going to produce for the product.</p>
+
+<ul>
+<li>Fast, built in search. Amazing the difference this makes.</li>
+<li>Something you could put up on the web with little to no fuss, but wasn&rsquo;t actually a public facing website.</li>
+<li>Allowed all kinds of markup, images, other resources.</li>
+<li>Wiki-style editing &ndash; who changed what, when, and some measure of version control.</li>
+<li>Plaintext or in some easily parsed format.</li>
+<li>I could quickly convert it into Word if I caught too much flak for not using it</li>
+</ul>
+
+
+<p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
+]]></content>
+  </entry>
+  
+</feed>

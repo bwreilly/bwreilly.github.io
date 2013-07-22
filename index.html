@@ -9,7 +9,7 @@
   <meta name="author" content="Ben Reilly">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="My last interlude with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,239 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/21/graph-tracing-for-water-quality-assessment/">Graph Tracing for Water Quality Assessment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-21T19:09:00-07:00" pubdate data-updated="true">Jul 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
+
+<p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
+
+<p>As far as I can tell, the corporate standard for documentation is Microsoft Word documents. At best, these have a relatively easy to navigate table of contents and the document is stored at the same location as the topic. At worst, it has neither attribute or doesn&rsquo;t exist &ndash; there is no practical difference between those two situations really. No one will ever find them &ndash; which for development projects is especially problematic.</p>
+
+<p>The Don&rsquo;t Repeat Yourself (DRY) principle applies outside single projects. There were some things I really wanted for the documentation I was going to produce for the product.</p>
+
+<ul>
+<li>Fast, built in search. Amazing the difference this makes.</li>
+<li>Something you could put up on the web with little to no fuss, but wasn&rsquo;t actually a public facing website.</li>
+<li>Allowed all kinds of markup, images, other resources.</li>
+<li>Wiki-style editing &ndash; who changed what, when, and some measure of version control.</li>
+<li>Plaintext or in some easily parsed format.</li>
+<li>I could quickly convert it into Word if I caught too much flak for not using it</li>
+</ul>
+
+
+<p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/">AI/Machine Learning Python Samples</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-18T18:54:00-07:00" pubdate data-updated="true">Apr 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><div class="posterous_autopost">
+I have a <a href="https://github.com/bwreilly/ai-ml">new repository on github</a> that demonstrates a couple of basic machine learning and AI techniques, principally picked up from CS_373 and Stanford&rsquo;s Introduction to AI. It&rsquo;s all explained there, and I intend to add to it as I continue my eduction in the field.</p>
+
+<p>Machine learning is something I rarely hear talked about in the spatial developer field. This is unfortunate, as machine learning can be an effecitive means of analyzing, managing, and generating spatial information.</p>
+
+<p>Another cool thing is the documentation I put together for this. I used <a href="http://fitzgen.github.com/pycco/">pycco</a>, a very easy to use annotated code document generator (port of <a href="http://jashkenas.github.com/docco/">Docco</a>). Here is a <a href="http://bwreilly.github.com/ai-ml/docs/pfilter.html">particle filter</a>. Here is a <a href="http://bwreilly.github.com/ai-ml/docs/kalman.html">Kalman filter</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/07/spatial-correction-using-a-particle-filter/">Spatial Correction Using a Particle Filter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-07T18:50:00-08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><div class="posterous_autopost">
+<h2>
+The Problem &ndash; old data, important data</h2>
+Some of the most important spatial data is old. It was built up and maintained over decades by paper and early computer systems, and it represents power lines, roads, water pipes, and property lines. It would be good to know the precise location of this stuff.
+The PLC power system was designed on in-house drawn lotlines. Today, the difference between those lotlines and the actual parcel locations is as much as 100ft, and in no consistent direction. What follows are attempts to correct the location of more than 20,000 structures without doing a significant portion by hand, using some techniques picked up in Stanford&rsquo;s Free AI class.
+<h2>
+The correct location is the &ldquo;Hidden&rdquo; bit</h2>
+Education in some very advanced and useful algorithms are now within the grasp of anyone with an internet connection and a decade old computer. More than a hundred thousand participated in the recently completed Stanford AI course, including myself. One particular technique caught my eye:
+<iframe float="center" frameborder="0" height="315" src="http://www.youtube.com/embed/H0G1yslM5rc?rel=0" width="560"></iframe>
+The problem being solved above is one of location &ndash; that is the hidden variable that needs to be estimated in continuous space. Why couldn&rsquo;t I do something similar for static assets like poles and underground vaults? With enough control points I could then move everything else relative to them (inverse distance weighted rubbersheeting) and vastly improve the data.
+<h2>
+A Naive Approach</h2>
+I wanted to start with the simplest possible implementation. I loaded the lotlines (old, hand-drawn), parcel polygons, and the poles into PostGIS. I then converted the lines and polygons to points, and decided to use the total sum distance as the mechanism for comparing candidate particles to the poles.
+Again, very naive (and the data is too noisy for it to work), but it served a purpose &ndash; getting everything set up for my next iteration: comparing candidates based on tangent and distance as the robot sensors above undoubtebly do.
+<div style="font-size: 10px;">
+</div></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/07/21/geometric-network-geoprocessing/">Geometric Network Geoprocessing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-21T19:04:00-07:00" pubdate data-updated="true">Jul 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><div class="posterous_autopost">
+I&rsquo;ve been hammering away at a GIS migration project that has been going  on far longer than anyone expected it might take, but I&rsquo;ve gotten the opportunity to hack away at some Python to more or less fix a problem I found on <a href="http://www.thegisforum.com/forums/t/7672.aspx">TheGISForum</a>:</p>
+
+<p><blockquote class="posterous_medium_quote">
+I  currently have a geometric network that I&rsquo;ve been working with  using  the Utility Network Analyst tools. However, I&rsquo;ve been trying to  perform  a few tasks that I&rsquo;ve noticed the Network Analyst tools provide,  but  the Utility Network Analyst does not.
+Specifically, I want to  place barriers at all locations specified by a  point feature class &ndash; a  functionality provided by the &ldquo;Add Locations&rdquo;  tool in the Network  Analyst Toolset.
+Is there a way to use the network analyst tools  on a geometric network?</blockquote></p>
+
+<p>The answer, sadly, is no. As far as I can tell, ESRI has not released any geoprocessing  tools for their Geometric Network.
+But it is possible to roll-your-own  solution to get the same kind of tools by using existing open source  libraries. I have a <a href="http://bitbucket.org/gallipoli/utilitynetwork/">work-in-progress project</a> along these exact lines.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">Programmatically Tracing a Network in ArcGIS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-16T19:11:00-07:00" pubdate data-updated="true">Sep 16<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I was tasked with tracing a water network, and after studying a previous programmer&rsquo;s work on the subject, I realized the solution is just a modified tree algorithm that is largely language independent.</p>
+
+<p>The trick is a recursive function that continues to call itself until it has gone down the totality of a single path. When it can&rsquo;t keep going &ndash; because it reaches the end of the line or because you convince the program it is the end of the line &ndash; it hops back one function call and tries to take an unvisited path. If it finds one, it repeats the whole process.</p>
+
+<p>The ArcObjects API contains the extensions for Network and Utility Network tools, but as far as I can tell, those are mostly for listening for trace events rather than starting your own. Since a network like that is just a modified topology (it inherits from ESRI&rsquo;s topology object), you can use ITopology to create a TopologyGraph which allows access to the Edges and Nodes required.</p>
+
+<p>But you don&rsquo;t need to use C#/VB.NET/VBA to pull this off. It would be possible with the API ESRI provides with its Python scripting object (IDispatch), as that contains start and end points in its Geometry object, or by creating your own node/tree structure.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
@@ -77,6 +310,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/21/graph-tracing-for-water-quality-assessment/">Graph Tracing for Water Quality Assessment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/">AI/Machine Learning Python Samples</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/07/spatial-correction-using-a-particle-filter/">Spatial Correction Using a Particle Filter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/21/geometric-network-geoprocessing/">Geometric Network Geoprocessing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">Programmatically Tracing a Network in ArcGIS</a>
+      </li>
     
   </ul>
 </section>

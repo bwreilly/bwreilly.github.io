@@ -1,16 +1,44 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>
+            http://bwreilly.github.io/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/
+        </loc>
+        <lastmod>2013-07-21T19:13:23-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing/</loc>
+        <lastmod>2013-07-21T19:07:04-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://bwreilly.github.io/blog/2012/02/07/spatial-correction-using-a-particle-filter/
+        </loc>
+        <lastmod>2013-07-21T19:01:04-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://bwreilly.github.io/blog/2012/04/18/ai-slash-machine-learning-python-samples/
+        </loc>
+        <lastmod>2013-07-21T18:57:25-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/
+        </loc>
+        <lastmod>2013-07-21T19:17:56-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://bwreilly.github.io/blog/archives/</loc>
-        <lastmod>2013-07-21T16:59:18-07:00</lastmod>
+        <lastmod>2013-07-21T19:17:56-07:00</lastmod>
     </url>
     <url>
         <loc>http://bwreilly.github.io/</loc>
-        <lastmod>2013-07-21T16:59:18-07:00</lastmod>
+        <lastmod>2013-07-21T19:17:56-07:00</lastmod>
     </url>
     <url>
         <loc>http://bwreilly.github.io/resume/</loc>
-        <lastmod>2013-07-21T18:11:52-07:00</lastmod>
+        <lastmod>2013-07-21T18:29:27-07:00</lastmod>
     </url>
     <url>
         <loc>http://bwreilly.github.io/robots.txt</loc>

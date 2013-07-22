@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Graph Tracing for Water Quality Assessment - Pragmatic Geographer</title>
+  <meta name="author" content="Ben Reilly">
+
+  
+  <meta name="description" content="My last interlude with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pragmatic Geographer" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Pragmatic Geographer</a></h1>
+  
+    <h2>SOFTWARE GEOGRAPHY ECONOMICS POLITICS</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:bwreilly.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Graph Tracing for Water Quality Assessment</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-21T19:09:00-07:00" pubdate data-updated="true">Jul 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
+
+<p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
+
+<p>As far as I can tell, the corporate standard for documentation is Microsoft Word documents. At best, these have a relatively easy to navigate table of contents and the document is stored at the same location as the topic. At worst, it has neither attribute or doesn&rsquo;t exist &ndash; there is no practical difference between those two situations really. No one will ever find them &ndash; which for development projects is especially problematic.</p>
+
+<p>The Don&rsquo;t Repeat Yourself (DRY) principle applies outside single projects. There were some things I really wanted for the documentation I was going to produce for the product.</p>
+
+<ul>
+<li>Fast, built in search. Amazing the difference this makes.</li>
+<li>Something you could put up on the web with little to no fuss, but wasn&rsquo;t actually a public facing website.</li>
+<li>Allowed all kinds of markup, images, other resources.</li>
+<li>Wiki-style editing &ndash; who changed what, when, and some measure of version control.</li>
+<li>Plaintext or in some easily parsed format.</li>
+<li>I could quickly convert it into Word if I caught too much flak for not using it</li>
+</ul>
+
+
+<p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Reilly</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-21T19:09:00-07:00" pubdate data-updated="true">Jul 21<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/documentation/'>documentation</a>, <a class='category' href='/blog/categories/esri/'>esri</a>, <a class='category' href='/blog/categories/graph/'>graph</a>, <a class='category' href='/blog/categories/network/'>network</a>, <a class='category' href='/blog/categories/search/'>search</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/" data-via="bwreilly" data-counturl="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/" title="Previous Post: AI/Machine Learning Python Samples">&laquo; AI/Machine Learning Python Samples</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/21/graph-tracing-for-water-quality-assessment/">Graph Tracing for Water Quality Assessment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/">AI/Machine Learning Python Samples</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/07/spatial-correction-using-a-particle-filter/">Spatial Correction Using a Particle Filter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/21/geometric-network-geoprocessing/">Geometric Network Geoprocessing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">Programmatically Tracing a Network in ArcGIS</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Ben Reilly -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'pragmaticgeographer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/';
+        var disqus_url = 'http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Pragmatic Geographer]]></title>
-  <link href="http://bwreilly.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: graph | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/graph/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
   <updated>2013-07-21T19:20:18-07:00</updated>
   <id>http://bwreilly.github.io/</id>
@@ -37,44 +37,6 @@
 
 
 <p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[AI/Machine Learning Python Samples]]></title>
-    <link href="http://bwreilly.github.io/blog/2012/04/18/ai-slash-machine-learning-python-samples/"/>
-    <updated>2012-04-18T18:54:00-07:00</updated>
-    <id>http://bwreilly.github.io/blog/2012/04/18/ai-slash-machine-learning-python-samples</id>
-    <content type="html"><![CDATA[<p><div class="posterous_autopost">
-I have a <a href="https://github.com/bwreilly/ai-ml">new repository on github</a> that demonstrates a couple of basic machine learning and AI techniques, principally picked up from CS_373 and Stanford&rsquo;s Introduction to AI. It&rsquo;s all explained there, and I intend to add to it as I continue my eduction in the field.</p>
-
-<p>Machine learning is something I rarely hear talked about in the spatial developer field. This is unfortunate, as machine learning can be an effecitive means of analyzing, managing, and generating spatial information.</p>
-
-<p>Another cool thing is the documentation I put together for this. I used <a href="http://fitzgen.github.com/pycco/">pycco</a>, a very easy to use annotated code document generator (port of <a href="http://jashkenas.github.com/docco/">Docco</a>). Here is a <a href="http://bwreilly.github.com/ai-ml/docs/pfilter.html">particle filter</a>. Here is a <a href="http://bwreilly.github.com/ai-ml/docs/kalman.html">Kalman filter</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spatial correction using a particle filter]]></title>
-    <link href="http://bwreilly.github.io/blog/2012/02/07/spatial-correction-using-a-particle-filter/"/>
-    <updated>2012-02-07T18:50:00-08:00</updated>
-    <id>http://bwreilly.github.io/blog/2012/02/07/spatial-correction-using-a-particle-filter</id>
-    <content type="html"><![CDATA[<p><div class="posterous_autopost">
-<h2>
-The Problem &ndash; old data, important data</h2>
-Some of the most important spatial data is old. It was built up and maintained over decades by paper and early computer systems, and it represents power lines, roads, water pipes, and property lines. It would be good to know the precise location of this stuff.
-The PLC power system was designed on in-house drawn lotlines. Today, the difference between those lotlines and the actual parcel locations is as much as 100ft, and in no consistent direction. What follows are attempts to correct the location of more than 20,000 structures without doing a significant portion by hand, using some techniques picked up in Stanford&rsquo;s Free AI class.
-<h2>
-The correct location is the &ldquo;Hidden&rdquo; bit</h2>
-Education in some very advanced and useful algorithms are now within the grasp of anyone with an internet connection and a decade old computer. More than a hundred thousand participated in the recently completed Stanford AI course, including myself. One particular technique caught my eye:
-<iframe float="center" frameborder="0" height="315" src="http://www.youtube.com/embed/H0G1yslM5rc?rel=0" width="560"></iframe>
-The problem being solved above is one of location &ndash; that is the hidden variable that needs to be estimated in continuous space. Why couldn&rsquo;t I do something similar for static assets like poles and underground vaults? With enough control points I could then move everything else relative to them (inverse distance weighted rubbersheeting) and vastly improve the data.
-<h2>
-A Naive Approach</h2>
-I wanted to start with the simplest possible implementation. I loaded the lotlines (old, hand-drawn), parcel polygons, and the poles into PostGIS. I then converted the lines and polygons to points, and decided to use the total sum distance as the mechanism for comparing candidate particles to the poles.
-Again, very naive (and the data is too noisy for it to work), but it served a purpose &ndash; getting everything set up for my next iteration: comparing candidates based on tangent and distance as the robot sensors above undoubtebly do.
-<div style="font-size: 10px;">
-</div></p>
 ]]></content>
   </entry>
   
