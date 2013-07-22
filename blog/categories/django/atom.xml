@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: django | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/django/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-21T19:57:56-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Testing search (Haystack) in Django]]></title>
+    <link href="http://bwreilly.github.io/blog/2013/07/21/testing-search-haystack-in-django/"/>
+    <updated>2013-07-21T19:33:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2013/07/21/testing-search-haystack-in-django</id>
+    <content type="html"><![CDATA[<p><a href="https://docs.djangoproject.com/en/dev/topics/testing/overview/">Django&rsquo;s build-in testing framework</a> is extremely handy. As long as you use the ORM with a supported data store, a test database is used for the duration of the tests and is cleaned up in between unit tests. There is no need for elaborate mocking &ndash; something I had grown accustom to in .NET.</p>
+
+<p>Here is a quick sample, edited for brevity:</p>
+
+<p>``` bash
+$ ./manage.py test appname -v 2</p>
+
+<p>Creating test database for alias &lsquo;default&rsquo; (&lsquo;test_projectname&rsquo;)…
+Syncing&hellip;
+Creating tables &hellip;
+test_first (projectname.test.SampleTestClass) &hellip; ok
+test_second (projectname.test.SampleTestClass) &hellip; ok
+test_third (projectname.test.SampleTestClass) &hellip; ok
+Ran 3 tests in 1.260s
+OK
+Destroying test database for alias &lsquo;default&rsquo; (&lsquo;test_projectname&rsquo;)…
+```</p>
+
+<p>But if you are using some external source of data, it is necessary to create a mock or some fake environment (as Django does).</p>
+
+<p><a href="http://haystacksearch.org/">Haystack</a> is a handy library that abstracts out the details of various search engines. You get some powerful features build into something like <a href="http://www.elasticsearch.org/">Elasticsearch</a> &ndash; high availability, full text search, spelling correct, <em>more like this</em>, etc &ndash; in some functions and data structures familiar to Django using developers.</p>
+
+<p>But if you are <a href="https://en.wikipedia.org/wiki/Integration_testing">integration testing</a>, and you should be &ndash; the tests are calling your views directly and your views are updating or retrieving data from an external search engine, you are going to potentially have a bad time. Stuff will be persisted between unit tests and your results will be likely be inconsistent.</p>
+
+<p>The solution is pretty simple actually. Fire up a new index, override the settings such that the new index is the target for the Haystack calls for the duration of tests, and clear the index between tests.</p>
+
+<p>``` python
+TEST_INDEX = {</p>
+
+<pre><code>'default': {
+    'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+    'URL': 'http://127.0.0.1:9200/',
+    'TIMEOUT': 60 * 10,
+    'INDEX_NAME': 'test_index',
+},
+</code></pre>
+
+<p>}</p>
+
+<p>@override_settings(HAYSTACK_CONNECTIONS=TEST_INDEX)
+class BaseTestCase(TestCase):</p>
+
+<pre><code>def setUp(self):
+    haystack.connections.reload('default')
+    super(BaseTestCase, self).setUp()
+
+def tearDown(self):
+    call_command('clear_index', interactive=False, verbosity=0)
+</code></pre>
+
+<p>```
+<a href="https://gist.github.com/bwreilly/6050981">Gist</a></p>
+]]></content>
+  </entry>
+  
+</feed>

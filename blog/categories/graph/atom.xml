@@ -4,7 +4,7 @@
   <title><![CDATA[Category: graph | Pragmatic Geographer]]></title>
   <link href="http://bwreilly.github.io/blog/categories/graph/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
-  <updated>2013-07-21T19:20:18-07:00</updated>
+  <updated>2013-07-21T19:57:56-07:00</updated>
   <id>http://bwreilly.github.io/</id>
   <author>
     <name><![CDATA[Ben Reilly]]></name>
@@ -14,10 +14,28 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Geometric Network Geoprocessing]]></title>
+    <link href="http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing/"/>
+    <updated>2010-07-21T19:04:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing</id>
+    <content type="html"><![CDATA[<p><div class="posterous_autopost">
+I&rsquo;ve been hammering away at a GIS migration project that has been going  on far longer than anyone expected it might take, but I&rsquo;ve gotten the opportunity to hack away at some Python to more or less fix a problem I found on <a href="http://www.thegisforum.com/forums/t/7672.aspx">TheGISForum</a>:</p>
+
+<p><blockquote class="posterous_medium_quote">
+I  currently have a geometric network that I&rsquo;ve been working with  using  the Utility Network Analyst tools. However, I&rsquo;ve been trying to  perform  a few tasks that I&rsquo;ve noticed the Network Analyst tools provide,  but  the Utility Network Analyst does not.
+Specifically, I want to  place barriers at all locations specified by a  point feature class &ndash; a  functionality provided by the &ldquo;Add Locations&rdquo;  tool in the Network  Analyst Toolset.
+Is there a way to use the network analyst tools  on a geometric network?</blockquote></p>
+
+<p>The answer, sadly, is no. As far as I can tell, ESRI has not released any geoprocessing  tools for their Geometric Network.
+But it is possible to roll-your-own  solution to get the same kind of tools by using existing open source  libraries. I have a <a href="http://bitbucket.org/gallipoli/utilitynetwork/">work-in-progress project</a> along these exact lines.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Graph Tracing for Water Quality Assessment]]></title>
-    <link href="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/"/>
-    <updated>2013-07-21T19:09:00-07:00</updated>
-    <id>http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment</id>
+    <link href="http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment/"/>
+    <updated>2009-08-13T19:09:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment</id>
     <content type="html"><![CDATA[<p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
 
 <p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
@@ -37,24 +55,6 @@
 
 
 <p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Geometric Network Geoprocessing]]></title>
-    <link href="http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing/"/>
-    <updated>2010-07-21T19:04:00-07:00</updated>
-    <id>http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing</id>
-    <content type="html"><![CDATA[<p><div class="posterous_autopost">
-I&rsquo;ve been hammering away at a GIS migration project that has been going  on far longer than anyone expected it might take, but I&rsquo;ve gotten the opportunity to hack away at some Python to more or less fix a problem I found on <a href="http://www.thegisforum.com/forums/t/7672.aspx">TheGISForum</a>:</p>
-
-<p><blockquote class="posterous_medium_quote">
-I  currently have a geometric network that I&rsquo;ve been working with  using  the Utility Network Analyst tools. However, I&rsquo;ve been trying to  perform  a few tasks that I&rsquo;ve noticed the Network Analyst tools provide,  but  the Utility Network Analyst does not.
-Specifically, I want to  place barriers at all locations specified by a  point feature class &ndash; a  functionality provided by the &ldquo;Add Locations&rdquo;  tool in the Network  Analyst Toolset.
-Is there a way to use the network analyst tools  on a geometric network?</blockquote></p>
-
-<p>The answer, sadly, is no. As far as I can tell, ESRI has not released any geoprocessing  tools for their Geometric Network.
-But it is possible to roll-your-own  solution to get the same kind of tools by using existing open source  libraries. I have a <a href="http://bitbucket.org/gallipoli/utilitynetwork/">work-in-progress project</a> along these exact lines.</p>
 ]]></content>
   </entry>
   

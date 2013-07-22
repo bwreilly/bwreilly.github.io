@@ -4,7 +4,7 @@
   <title><![CDATA[Category: documentation | Pragmatic Geographer]]></title>
   <link href="http://bwreilly.github.io/blog/categories/documentation/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
-  <updated>2013-07-21T19:20:18-07:00</updated>
+  <updated>2013-07-21T19:57:56-07:00</updated>
   <id>http://bwreilly.github.io/</id>
   <author>
     <name><![CDATA[Ben Reilly]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Graph Tracing for Water Quality Assessment]]></title>
-    <link href="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/"/>
-    <updated>2013-07-21T19:09:00-07:00</updated>
-    <id>http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment</id>
+    <link href="http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment/"/>
+    <updated>2009-08-13T19:09:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment</id>
     <content type="html"><![CDATA[<p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
 
 <p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>

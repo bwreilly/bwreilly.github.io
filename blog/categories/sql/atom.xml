@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sql | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/sql/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-21T19:57:56-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fun with SQL Spatial]]></title>
+    <link href="http://bwreilly.github.io/blog/2010/02/05/fun-with-sql-spatial/"/>
+    <updated>2010-02-05T19:43:00-08:00</updated>
+    <id>http://bwreilly.github.io/blog/2010/02/05/fun-with-sql-spatial</id>
+    <content type="html"><![CDATA[<p>This is old hat by now, but I love how much cruft can be killed by outright avoiding older APIs.<br/>
+A unique location number needed to be generated for an engineering design tool. A vendor contact sent an example to work off that was about 400 lines of C# code. This little stored procedure replaced basically all of it.
+```sql
+CREATE PROCEDURE [sde].[IntersectGrid]
+@x FLOAT, @y FLOAT
+AS SET NOCOUNT ON
+BEGIN</p>
+
+<p>DECLARE @g geometry;
+DECLARE @grid int;
+SET @g = geometry::STPointFromText(&lsquo;POINT (&rsquo;+str(@x)+&lsquo; &rsquo;+ STR(@y)+&lsquo;)&rsquo;, 2);
+SET @grid = (
+  SELECT TOP 1 [areaName]
+  FROM GridTable
+  Where @g.STWithin(Shape) &lt;&gt; 0
+ )
+return @grid
+END
+```
+How do you make this 400 lines? Easy, use the ArcObject API to do the intersect. Instantiating dozens of objects, checking out/in licenses, and using reflection to read a config file (not sure why they didn&rsquo;t just use AppSettings) adds up fast.
+I could probably even do it with even less effort using <a href="http://trac.gispython.org/lab/wiki/Shapely">Shapely</a>, but no one else is really familiar with Python in this situation (vendors or coworkers).</p>
+]]></content>
+  </entry>
+  
+</feed>

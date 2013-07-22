@@ -4,7 +4,7 @@
   <title><![CDATA[Pragmatic Geographer]]></title>
   <link href="http://bwreilly.github.io/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
-  <updated>2013-07-21T19:20:18-07:00</updated>
+  <updated>2013-07-21T19:57:56-07:00</updated>
   <id>http://bwreilly.github.io/</id>
   <author>
     <name><![CDATA[Ben Reilly]]></name>
@@ -14,29 +14,89 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Graph Tracing for Water Quality Assessment]]></title>
-    <link href="http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment/"/>
-    <updated>2013-07-21T19:09:00-07:00</updated>
-    <id>http://bwreilly.github.io/blog/2013/07/21/graph-tracing-for-water-quality-assessment</id>
-    <content type="html"><![CDATA[<p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
+    <title type="html"><![CDATA[Testing search (Haystack) in Django]]></title>
+    <link href="http://bwreilly.github.io/blog/2013/07/21/testing-search-haystack-in-django/"/>
+    <updated>2013-07-21T19:33:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2013/07/21/testing-search-haystack-in-django</id>
+    <content type="html"><![CDATA[<p><a href="https://docs.djangoproject.com/en/dev/topics/testing/overview/">Django&rsquo;s build-in testing framework</a> is extremely handy. As long as you use the ORM with a supported data store, a test database is used for the duration of the tests and is cleaned up in between unit tests. There is no need for elaborate mocking &ndash; something I had grown accustom to in .NET.</p>
 
-<p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
+<p>Here is a quick sample, edited for brevity:</p>
 
-<p>As far as I can tell, the corporate standard for documentation is Microsoft Word documents. At best, these have a relatively easy to navigate table of contents and the document is stored at the same location as the topic. At worst, it has neither attribute or doesn&rsquo;t exist &ndash; there is no practical difference between those two situations really. No one will ever find them &ndash; which for development projects is especially problematic.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./manage.py <span class="nb">test </span>appname -v 2
+</span><span class='line'>
+</span><span class='line'>Creating <span class="nb">test </span>database <span class="k">for </span><span class="nb">alias</span> <span class="s1">&#39;default&#39;</span> <span class="o">(</span><span class="s1">&#39;test_projectname&#39;</span><span class="o">)</span>…
+</span><span class='line'>Syncing...
+</span><span class='line'>Creating tables ...
+</span><span class='line'>test_first <span class="o">(</span>projectname.test.SampleTestClass<span class="o">)</span> ... ok
+</span><span class='line'>test_second <span class="o">(</span>projectname.test.SampleTestClass<span class="o">)</span> ... ok
+</span><span class='line'>test_third <span class="o">(</span>projectname.test.SampleTestClass<span class="o">)</span> ... ok
+</span><span class='line'>Ran 3 tests in 1.260s
+</span><span class='line'>OK
+</span><span class='line'>Destroying <span class="nb">test </span>database <span class="k">for </span><span class="nb">alias</span> <span class="s1">&#39;default&#39;</span> <span class="o">(</span><span class="s1">&#39;test_projectname&#39;</span><span class="o">)</span>…
+</span></code></pre></td></tr></table></div></figure>
 
-<p>The Don&rsquo;t Repeat Yourself (DRY) principle applies outside single projects. There were some things I really wanted for the documentation I was going to produce for the product.</p>
 
-<ul>
-<li>Fast, built in search. Amazing the difference this makes.</li>
-<li>Something you could put up on the web with little to no fuss, but wasn&rsquo;t actually a public facing website.</li>
-<li>Allowed all kinds of markup, images, other resources.</li>
-<li>Wiki-style editing &ndash; who changed what, when, and some measure of version control.</li>
-<li>Plaintext or in some easily parsed format.</li>
-<li>I could quickly convert it into Word if I caught too much flak for not using it</li>
-</ul>
+<p>But if you are using some external source of data, it is necessary to create a mock or some fake environment (as Django does).</p>
+
+<p><a href="http://haystacksearch.org/">Haystack</a> is a handy library that abstracts out the details of various search engines. You get some powerful features build into something like <a href="http://www.elasticsearch.org/">Elasticsearch</a> &ndash; high availability, full text search, spelling correct, <em>more like this</em>, etc &ndash; in some functions and data structures familiar to Django using developers.</p>
+
+<p>But if you are <a href="https://en.wikipedia.org/wiki/Integration_testing">integration testing</a>, and you should be &ndash; the tests are calling your views directly and your views are updating or retrieving data from an external search engine, you are going to potentially have a bad time. Stuff will be persisted between unit tests and your results will be likely be inconsistent.</p>
+
+<p>The solution is pretty simple actually. Fire up a new index, override the settings such that the new index is the target for the Haystack calls for the duration of tests, and clear the index between tests.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">TEST_INDEX</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&#39;URL&#39;</span><span class="p">:</span> <span class="s">&#39;http://127.0.0.1:9200/&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&#39;TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&#39;INDEX_NAME&#39;</span><span class="p">:</span> <span class="s">&#39;test_index&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@override_settings</span><span class="p">(</span><span class="n">HAYSTACK_CONNECTIONS</span><span class="o">=</span><span class="n">TEST_INDEX</span><span class="p">)</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">BaseTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">haystack</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">(</span><span class="n">BaseTestCase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">call_command</span><span class="p">(</span><span class="s">&#39;clear_index&#39;</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
+<p><a href="https://gist.github.com/bwreilly/6050981">Gist</a></p>
 ]]></content>
   </entry>
   
@@ -79,6 +139,139 @@ Again, very naive (and the data is too noisy for it to work), but it served a pu
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[TileMill - what it does and some reasons to try it]]></title>
+    <link href="http://bwreilly.github.io/blog/2012/01/27/tilemill-what-it-does-and-some-reasons-to-try-it/"/>
+    <updated>2012-01-27T19:45:00-08:00</updated>
+    <id>http://bwreilly.github.io/blog/2012/01/27/tilemill-what-it-does-and-some-reasons-to-try-it</id>
+    <content type="html"><![CDATA[<div class="posterous_autopost">
+<p>
+We were promised jetpacks, but I&#8217;ll take [Tilemill](http://mapbox.com/tilemill/) as a temporary replacement: </p>
+<p>
+</p>
+<img alt="jetpacks" src="http://bwreilly.github.io/images/jetpacks.jpg" height="447" width="500" />
+<p>
+</p>
+<p>
+<em>The MapBox/DevelopmentSeed team has created one of the the last pieces really needed for mainstream open source GIS to gain really massive appeal</em></p>
+<p>
+TileMill is used for making web maps - or more specifically - for generating tiles that make up the now-ubiquiteous slippy maps we see online.</p>
+<p>
+There are other desktop applications that do this, the most notable being ArcGIS Desktop. But Desktop was built for other things first: advanced analysis tools, some pretty powerful editing capabilities, and authoring paper maps.</p>
+<p>
+<em>TileMill does one thing and it does it well</em>. It costs nothing (compared to several thousand for some flavor of ArcMap), and outputs an open tile format that you can wire up to a webmap or iPad in less time than it takes to install ArcMap.</p>
+<p>
+And it is <em>smooth</em>. The user experience is the best I have had with a desktop application in a long while.</p>
+<p>
+It also has sane, plaintext css-like styling (MSS). This may sound like a no-brainer, but your options before this were basically some proprietary binary format from ESRI (not extensible, difficult to automate, limiting, vendor specific) or SLD, which is open source but widely regarded as something of a mess for other reasons.</p>
+<p>
+There is also the training issue. ArcMap is giant and powerful - and extremely complex. The market for &#8220;GIS Analysts&#8221; is still strong in a large part because of this complexity. Less experienced users will find TillMill easier to pick up and web designers (of which there is a large pool of talent) will find it very easy.</p>
+<p>
+It is out for every operating system of note. Go give it a try.</p>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 File API: First Impressions]]></title>
+    <link href="http://bwreilly.github.io/blog/2010/08/11/html5-file-api-first-impressions/"/>
+    <updated>2010-08-11T19:53:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2010/08/11/html5-file-api-first-impressions</id>
+    <content type="html"><![CDATA[<p>Recently went to an HTML5 Hackathon at Google Kirkland. My group&rsquo;s project was an in-browser IDE Chrome extension that zipped up a user-provided series of HTML/CSS/JS files into a package that could be uploaded to the Chrome Store. <a href="https://plus.google.com/110816632848977818341/about">Issac Lewis</a> came up with the idea after trying to develop chrome extensions on his chromebook and finding it basically impossible to do. Storing the files was a perfect use case for the FileSystem API, but I spent most of my time beating my head against the wall to get it working. Here are some of the things I wish I knew going in.</p>
+
+<h3>The FileSystem API is not LocalStorage.</h3>
+
+<p>LocalStorage is a key-value store, the FileSystem API really is an entire virtual file system, sandboxed on a user&rsquo;s local file system. You write, read, and create files async. It&rsquo;s also only implemented currently in Chrome. The documentation says 9+, but I hit errors until I switched from Chromium 12 to Chrome 13.</p>
+
+<h3>There&rsquo;s no limit to the storage, currently.</h3>
+
+<p>Hell yeah, cache all your map data on the user&rsquo;s local file system without needing an explicit download or local client built for it. That&rsquo;s a big deal for conditions or places with little to no connectivity. Also a big deal for massive games with a ton of art assets. They go through some good use cases <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/#toc-usecases">here</a>.</p>
+
+<h3>Debugging is a pain.</h3>
+
+<p>You will hit the dreaded SECURITY_ERR or QUOTA_EXCEEDED_ERR at some point, and it will be because debugging locally (file://) doesn&rsquo;t work well in my experience. The documentation suggests it&rsquo;s possible by opening Chrome with the <em>&mdash;unlimited-quota-for-files</em> and<em> &mdash;allow-file-access-from-files</em> flags, but my problems were only resolved when I started debugging as an extension rather than as a local file.
+You also need to be careful about the flux the API is in. Throwing around BlobBuilder() and other pieces of the newer APIs can throw errors that can be difficult to track down. BlobBuilder didn&rsquo;t work for me, I needed window.WebKitBlobBuilder. That <em>webkit</em> prefixing shows up elsewhere as well (like window.webkitRequestFileSystem).</p>
+
+<p>Feel no guilt in lifting gratuitously from the sample docs when starting out.
+Async file access isn&rsquo;t really any wierder than any other browser async work, but there is some boilerplate code that is worth snapping up. Example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//error handling </span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nx">FileError</span><span class="p">.</span><span class="nx">QUOTA_EXCEEDED_ERR</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;QUOTA_EXCEEDED_ERR&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nx">FileError</span><span class="p">.</span><span class="nx">NOT_FOUND_ERR</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;NOT_FOUND_ERR&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nx">FileError</span><span class="p">.</span><span class="nx">SECURITY_ERR</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;SECURITY_ERR&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nx">FileError</span><span class="p">.</span><span class="nx">INVALID_MODIFICATION_ERR</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;INVALID_MODIFICATION_ERR&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nx">FileError</span><span class="p">.</span><span class="nx">INVALID_STATE_ERR</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;INVALID_STATE_ERR&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>      <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;Unknown Error&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: &#39;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//file system instantiation</span>
+</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">requestFileSystem</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">PERSISTENT</span><span class="p">,</span> <span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span> <span class="cm">/*5MB*/</span><span class="p">,</span> <span class="nx">FSCreatedSuccess</span><span class="p">,</span> <span class="nx">errorHandler</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This kind of thing is okay starting out, but you&rsquo;ll want a lot more out of the error handling eventually. The message is fine, but the code tells you nothing about <em>where</em> the error occurred and in reference to what object or operation.</p>
+
+<p>It&rsquo;s not CRUD, mostly.
+Don&rsquo;t look for an explicit <em>create</em> method somewhere, the default is <em>get or create</em> via [filesystem_obj].[directory].get[Directory|File]. All reading, writing, and updating is probably going to live in a closure that starts with that first get.</p>
+
+<h3>Don&rsquo;t rush.</h3>
+
+<p>I made the mistake of looking at the limited time allocated and starting just throwing the example code in willy-nilly. This is not what you do with an unfamiliar and very new API. The typical help online is not there yet because it hasn&rsquo;t been used yet in a widespread way, throwing those error messages into google is not going to help you (unless that is how you got to this page, naturally). Start with the example code, sure, but I would carefully <a href="http://www.html5rocks.com/en/tutorials/file/filesystem">read the entirety of the short intro</a> before trying random things to get it to work.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Geometric Network Geoprocessing]]></title>
     <link href="http://bwreilly.github.io/blog/2010/07/21/geometric-network-geoprocessing/"/>
     <updated>2010-07-21T19:04:00-07:00</updated>
@@ -93,6 +286,79 @@ Is there a way to use the network analyst tools  on a geometric network?</blockq
 
 <p>The answer, sadly, is no. As far as I can tell, ESRI has not released any geoprocessing  tools for their Geometric Network.
 But it is possible to roll-your-own  solution to get the same kind of tools by using existing open source  libraries. I have a <a href="http://bitbucket.org/gallipoli/utilitynetwork/">work-in-progress project</a> along these exact lines.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fun with SQL Spatial]]></title>
+    <link href="http://bwreilly.github.io/blog/2010/02/05/fun-with-sql-spatial/"/>
+    <updated>2010-02-05T19:43:00-08:00</updated>
+    <id>http://bwreilly.github.io/blog/2010/02/05/fun-with-sql-spatial</id>
+    <content type="html"><![CDATA[<p>This is old hat by now, but I love how much cruft can be killed by outright avoiding older APIs.<br/>
+A unique location number needed to be generated for an engineering design tool. A vendor contact sent an example to work off that was about 400 lines of C# code. This little stored procedure replaced basically all of it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="p">[</span><span class="n">sde</span><span class="p">].[</span><span class="n">IntersectGrid</span><span class="p">]</span>
+</span><span class='line'><span class="o">@</span><span class="n">x</span> <span class="nb">FLOAT</span><span class="p">,</span> <span class="o">@</span><span class="n">y</span> <span class="nb">FLOAT</span>
+</span><span class='line'><span class="k">AS</span> <span class="k">SET</span> <span class="n">NOCOUNT</span> <span class="k">ON</span>
+</span><span class='line'><span class="k">BEGIN</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">DECLARE</span> <span class="o">@</span><span class="k">g</span> <span class="n">geometry</span><span class="p">;</span>
+</span><span class='line'><span class="k">DECLARE</span> <span class="o">@</span><span class="n">grid</span> <span class="nb">int</span><span class="p">;</span>
+</span><span class='line'><span class="k">SET</span> <span class="o">@</span><span class="k">g</span> <span class="o">=</span> <span class="n">geometry</span><span class="p">::</span><span class="n">STPointFromText</span><span class="p">(</span><span class="s1">&#39;POINT (&#39;</span><span class="o">+</span><span class="n">str</span><span class="p">(</span><span class="o">@</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span> <span class="n">STR</span><span class="p">(</span><span class="o">@</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="k">SET</span> <span class="o">@</span><span class="n">grid</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>  <span class="k">SELECT</span> <span class="n">TOP</span> <span class="mi">1</span> <span class="p">[</span><span class="n">areaName</span><span class="p">]</span>
+</span><span class='line'>  <span class="k">FROM</span> <span class="n">GridTable</span>
+</span><span class='line'>  <span class="k">Where</span> <span class="o">@</span><span class="k">g</span><span class="p">.</span><span class="n">STWithin</span><span class="p">(</span><span class="n">Shape</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span>
+</span><span class='line'> <span class="p">)</span>
+</span><span class='line'><span class="k">return</span> <span class="o">@</span><span class="n">grid</span>
+</span><span class='line'><span class="k">END</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How do you make this 400 lines? Easy, use the ArcObject API to do the intersect. Instantiating dozens of objects, checking out/in licenses, and using reflection to read a config file (not sure why they didn&rsquo;t just use AppSettings) adds up fast.
+I could probably even do it with even less effort using <a href="http://trac.gispython.org/lab/wiki/Shapely">Shapely</a>, but no one else is really familiar with Python in this situation (vendors or coworkers).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Tracing for Water Quality Assessment]]></title>
+    <link href="http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment/"/>
+    <updated>2009-08-13T19:09:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2009/08/13/graph-tracing-for-water-quality-assessment</id>
+    <content type="html"><![CDATA[<p>My <a href="http://localhost:4000/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">last interlude</a> with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that could confound maintenance efforts.</p>
+
+<p>Apparently I impressed someone enough with it to get a new trace-oriented project having to do with water quality. I&rsquo;ll have a second part to this talking about my first run at it and a subsequent refactoring that I&rsquo;m extremely happy with, but first I wanted to mention how I was documenting it.</p>
+
+<p>As far as I can tell, the corporate standard for documentation is Microsoft Word documents. At best, these have a relatively easy to navigate table of contents and the document is stored at the same location as the topic. At worst, it has neither attribute or doesn&rsquo;t exist &ndash; there is no practical difference between those two situations really. No one will ever find them &ndash; which for development projects is especially problematic.</p>
+
+<p>The Don&rsquo;t Repeat Yourself (DRY) principle applies outside single projects. There were some things I really wanted for the documentation I was going to produce for the product.</p>
+
+<ul>
+<li>Fast, built in search. Amazing the difference this makes.</li>
+<li>Something you could put up on the web with little to no fuss, but wasn&rsquo;t actually a public facing website.</li>
+<li>Allowed all kinds of markup, images, other resources.</li>
+<li>Wiki-style editing &ndash; who changed what, when, and some measure of version control.</li>
+<li>Plaintext or in some easily parsed format.</li>
+<li>I could quickly convert it into Word if I caught too much flak for not using it</li>
+</ul>
+
+
+<p>What I eventually settled on is called <a href="http://www.tiddlywiki.com/">TiddlyWiki</a> (Google, Bing, Yahoo!..I&rsquo;m just certain there is a rule Web2.0 stuff requires a childish name for success). Its one HTML document, thus very portable, with a bunch of JavaScript that implements all the functionality I wanted above. It also apparently has a lively plugin community that I haven&rsquo;t had time to peruse.</p>
 ]]></content>
   </entry>
   
