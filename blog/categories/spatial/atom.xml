@@ -4,7 +4,7 @@
   <title><![CDATA[Category: spatial | Pragmatic Geographer]]></title>
   <link href="http://bwreilly.github.io/blog/categories/spatial/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
-  <updated>2013-07-21T19:57:56-07:00</updated>
+  <updated>2013-07-22T08:19:20-07:00</updated>
   <id>http://bwreilly.github.io/</id>
   <author>
     <name><![CDATA[Ben Reilly]]></name>
@@ -34,6 +34,52 @@ I wanted to start with the simplest possible implementation. I loaded the lotlin
 Again, very naive (and the data is too noisy for it to work), but it served a purpose &ndash; getting everything set up for my next iteration: comparing candidates based on tangent and distance as the robot sensors above undoubtebly do.
 <div style="font-size: 10px;">
 </div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducting (belatedly) nx_spatial]]></title>
+    <link href="http://bwreilly.github.io/blog/2011/02/27/introducting-belatedly-nx-spatial/"/>
+    <updated>2011-02-27T20:00:00-08:00</updated>
+    <id>http://bwreilly.github.io/blog/2011/02/27/introducting-belatedly-nx-spatial</id>
+    <content type="html"><![CDATA[<p>
+It's been more or less done a while, but here is finally a blog post about it.</p>
+
+
+<p>
+<a href="https://bitbucket.org/gallipoli/nx_spatial">nx_spatial</a> is a collection of addon functions for the <a href="http://networkx.lanl.gov/index.html">networkx</a> python graph library. What can you do with it?</p>
+
+
+<ol>
+<li>Load GIS formats into <a href="http://networkx.lanl.gov/reference/introduction.html">networkx graphs</a> (where you can do all sorts of <a href="http://networkx.lanl.gov/reference/index.html">crazy analytics</a> on them)</li>
+<li>Perform upstream and downstream traces with stopping points.</li>
+<li>Set sources and find/repair edges that don't have the correct to/from nodes.</li>
+</ol>
+
+
+<p>
+Example from the <a href="https://bitbucket.org/gallipoli/nx_spatial/wiki/Home">wiki</a>:</p>
+
+
+<p><code>python
+import nx_spatial as ns
+net = ns.read_shp('/shapes/lines.shp')
+net.edges() [[(1.0, 1.0), (2.0, 2.0)], [(2.0, 2.0), (3.0, 3.0)], [(0.9, 0.9), (4.0, 2.0)]]
+net.nodes() [(1.0, 1.0), (2.0, 2.0), (3.0, 3.0), (0.9, 0.9), (4.0, 2.0)]
+source = (2.0, 2.0)
+ns.setdirection(net, source)
+net.edges() [[(2.0, 2.0), (1.0, 1.0)], [(2.0, 2.0), (3.0, 3.0)], [(0.9, 0.9), (4.0, 2.0)]]
+</code></p>
+
+<p>
+Available on <a href="http://pypi.python.org/pypi/nx_spatial/0.3dev">pypi</a> or <a href="https://bitbucket.org/gallipoli/nx_spatial/wiki/Home">bitbucket</a>. Eventually I want to integrate it with networkx trunk (loading shapefiles is already in 1.4).</p>
+
+
+<p style="font-size: 10px;">
+<a href="http://posterous.com/">Posted via email</a>  from <a href="http://pragmaticgeographer.posterous.com/introducing-belatedly-nxspatial">The Pragmatic Geographer</a> </p>
+
+
+
 ]]></content>
   </entry>
   
