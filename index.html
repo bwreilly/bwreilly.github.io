@@ -9,7 +9,7 @@
   <meta name="author" content="Ben Reilly">
 
   
-  <meta name="description" content="Django&rsquo;s build-in testing framework is extremely handy. As long as you use the ORM with a supported data store, a test database is used for the &hellip;">
+  <meta name="description" content="Your web application will support uploading files. At first glance, this is an action and you might consider working with it as an RPC endpoint &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/23/rest-and-file-uploads-slash-attachments/">REST and File Uploads/Attachments</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-23T12:50:00-07:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Your web application will support uploading files. At first glance, this is an action and you might consider working with it as an RPC endpoint rather than REST. The <code>upload</code> could refer to a verb rather than a noun.</p>
+
+<p>There isn&rsquo;t anything really wrong with this, but I would argue there are significant advantages with going with it as a noun (REST resource). Here are a few:</p>
+
+<h4>Staging an upload to external datastore</h4>
+
+<p>An upload may not be directly to you, and it might not be used by the requesting client &ndash; signed S3 forms, one-time URL endpoints, other protocols like Bittorrent, and other mechanisms that allow direct client uploads.</p>
+
+<p>Example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;upload_to_url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/one/time/endpoint/hashhashhash&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;signed_token&quot;</span><span class="o">:</span> <span class="s2">&quot;blahblahblah&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;expires&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;etc&quot;</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Tracking/auditing &ndash; both internally and externally</h4>
+
+<p>What if a user wants to see what uploads are currently in progress? All of the successful ones? The failures? Those are all also useful metrics internally as well.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;createuser&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;modifieduser&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;createdate&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;modifieduser&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Attaching additional resources as a means of post-upload action</h4>
+
+<p>The file being uploaded is unlikely to exist in a vacuum. You will have related resources and possibly related <em>actions</em>. Consider, for instance, that you want to send alerts to some people when the upload is complete:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;subscribers&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/288&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/3&quot;</span>
+</span><span class='line'>    <span class="p">],</span>
+</span><span class='line'>    <span class="s2">&quot;etc&quot;</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Explicit vs. implicit</h4>
+
+<p>Bottom line &ndash; your <code>upload</code> has state information. You are probably capturing it anyway in logs or other resources. If you have some subscribers as above, you want to make that information explicit, and in many cases, client controlled.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -712,49 +817,9 @@ I could probably even do it with even less effort using <a href="http://trac.gis
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/16/programmatically-tracing-a-network-in-arcgis/">Programmatically Tracing a Network in ArcGIS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-16T19:11:00-07:00" pubdate data-updated="true">Sep 16<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I was tasked with tracing a water network, and after studying a previous programmer&rsquo;s work on the subject, I realized the solution is just a modified tree algorithm that is largely language independent.</p>
-
-<p>The trick is a recursive function that continues to call itself until it has gone down the totality of a single path. When it can&rsquo;t keep going &ndash; because it reaches the end of the line or because you convince the program it is the end of the line &ndash; it hops back one function call and tries to take an unvisited path. If it finds one, it repeats the whole process.</p>
-
-<p>The ArcObjects API contains the extensions for Network and Utility Network tools, but as far as I can tell, those are mostly for listening for trace events rather than starting your own. Since a network like that is just a modified topology (it inherits from ESRI&rsquo;s topology object), you can use ITopology to create a TopologyGraph which allows access to the Edges and Nodes required.</p>
-
-<p>But you don&rsquo;t need to use C#/VB.NET/VBA to pull this off. It would be possible with the API ESRI provides with its Python scripting object (IDispatch), as that contains start and end points in its Geometry object, or by creating your own node/tree structure.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -765,6 +830,10 @@ I could probably even do it with even less effort using <a href="http://trac.gis
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/23/rest-and-file-uploads-slash-attachments/">REST and File Uploads/Attachments</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/07/21/testing-search-haystack-in-django/">Testing Search (Haystack) in Django</a>
@@ -780,10 +849,6 @@ I could probably even do it with even less effort using <a href="http://trac.gis
     
       <li class="post">
         <a href="/blog/2012/01/27/tilemill-what-it-does-and-some-reasons-to-try-it/">TileMill - What It Does and Some Reasons to Try It</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/02/27/introducting-belatedly-nx-spatial/">Introducting (Belatedly) Nx_spatial</a>
       </li>
     
   </ul>

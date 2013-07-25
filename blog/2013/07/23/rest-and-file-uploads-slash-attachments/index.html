@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>REST and File Uploads/Attachments - Pragmatic Geographer</title>
+  <meta name="author" content="Ben Reilly">
+
+  
+  <meta name="description" content="Your web application will support uploading files. At first glance, this is an action and you might consider working with it as an RPC endpoint &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pragmatic Geographer" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Pragmatic Geographer</a></h1>
+  
+    <h2>SOFTWARE GEOGRAPHY ECONOMICS POLITICS</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:bwreilly.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/resume">Resume</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">REST and File Uploads/Attachments</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-23T12:50:00-07:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Your web application will support uploading files. At first glance, this is an action and you might consider working with it as an RPC endpoint rather than REST. The <code>upload</code> could refer to a verb rather than a noun.</p>
+
+<p>There isn&rsquo;t anything really wrong with this, but I would argue there are significant advantages with going with it as a noun (REST resource). Here are a few:</p>
+
+<h4>Staging an upload to external datastore</h4>
+
+<p>An upload may not be directly to you, and it might not be used by the requesting client &ndash; signed S3 forms, one-time URL endpoints, other protocols like Bittorrent, and other mechanisms that allow direct client uploads.</p>
+
+<p>Example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;upload_to_url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/one/time/endpoint/hashhashhash&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;signed_token&quot;</span><span class="o">:</span> <span class="s2">&quot;blahblahblah&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;expires&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;etc&quot;</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Tracking/auditing &ndash; both internally and externally</h4>
+
+<p>What if a user wants to see what uploads are currently in progress? All of the successful ones? The failures? Those are all also useful metrics internally as well.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;createuser&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;modifieduser&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;createdate&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;modifieduser&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-07-12T19:10:19.491Z&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Attaching additional resources as a means of post-upload action</h4>
+
+<p>The file being uploaded is unlikely to exist in a vacuum. You will have related resources and possibly related <em>actions</em>. Consider, for instance, that you want to send alerts to some people when the upload is complete:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;subscribers&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/1234&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/288&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;https://example.com/user/3&quot;</span>
+</span><span class='line'>    <span class="p">],</span>
+</span><span class='line'>    <span class="s2">&quot;etc&quot;</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Explicit vs. implicit</h4>
+
+<p>Bottom line &ndash; your <code>upload</code> has state information. You are probably capturing it anyway in logs or other resources. If you have some subscribers as above, you want to make that information explicit, and in many cases, client controlled.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Reilly</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-23T12:50:00-07:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rest/'>REST</a>, <a class='category' href='/blog/categories/datamodel/'>datamodel</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/webdevelopment/'>webdevelopment</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments/" data-via="bwreilly" data-counturl="http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/21/testing-search-haystack-in-django/" title="Previous Post: Testing search (Haystack) in Django">&laquo; Testing search (Haystack) in Django</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/23/rest-and-file-uploads-slash-attachments/">REST and File Uploads/Attachments</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/21/testing-search-haystack-in-django/">Testing Search (Haystack) in Django</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/">AI/Machine Learning Python Samples</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/07/spatial-correction-using-a-particle-filter/">Spatial Correction Using a Particle Filter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/27/tilemill-what-it-does-and-some-reasons-to-try-it/">TileMill - What It Does and Some Reasons to Try It</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Ben Reilly -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'pragmaticgeographer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments/';
+        var disqus_url = 'http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: datamodel | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/datamodel/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2013-07-25T10:53:10-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[REST and File Uploads/Attachments]]></title>
+    <link href="http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments/"/>
+    <updated>2013-07-23T12:50:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2013/07/23/rest-and-file-uploads-slash-attachments</id>
+    <content type="html"><![CDATA[<p>Your web application will support uploading files. At first glance, this is an action and you might consider working with it as an RPC endpoint rather than REST. The <code>upload</code> could refer to a verb rather than a noun.</p>
+
+<p>There isn&rsquo;t anything really wrong with this, but I would argue there are significant advantages with going with it as a noun (REST resource). Here are a few:</p>
+
+<h4>Staging an upload to external datastore</h4>
+
+<p>An upload may not be directly to you, and it might not be used by the requesting client &ndash; signed S3 forms, one-time URL endpoints, other protocols like Bittorrent, and other mechanisms that allow direct client uploads.</p>
+
+<p>Example:</p>
+
+<p>``` javascript
+{</p>
+
+<pre><code>"upload_to_url": "https://example.com/one/time/endpoint/hashhashhash",
+"signed_token": "blahblahblah",
+"expires": "2013-07-12T19:10:19.491Z",
+"etc": "..."
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>Tracking/auditing &ndash; both internally and externally</h4>
+
+<p>What if a user wants to see what uploads are currently in progress? All of the successful ones? The failures? Those are all also useful metrics internally as well.</p>
+
+<p>``` javascript
+{</p>
+
+<pre><code>"createuser": "https://example.com/user/1234",
+"modifieduser": "https://example.com/user/1234",
+"createdate": "2013-07-12T19:10:19.491Z",
+"modifieduser": "2013-07-12T19:10:19.491Z"
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>Attaching additional resources as a means of post-upload action</h4>
+
+<p>The file being uploaded is unlikely to exist in a vacuum. You will have related resources and possibly related <em>actions</em>. Consider, for instance, that you want to send alerts to some people when the upload is complete:</p>
+
+<p>``` javascript
+{</p>
+
+<pre><code>"subscribers": [
+    "https://example.com/user/1234",
+    "https://example.com/user/288",
+    "https://example.com/user/3"
+],
+"etc": "..."
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>Explicit vs. implicit</h4>
+
+<p>Bottom line &ndash; your <code>upload</code> has state information. You are probably capturing it anyway in logs or other resources. If you have some subscribers as above, you want to make that information explicit, and in many cases, client controlled.</p>
+]]></content>
+  </entry>
+  
+</feed>
