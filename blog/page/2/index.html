@@ -9,7 +9,8 @@
   <meta name="author" content="Ben Reilly">
 
   
-  <meta name="description" content="My last interlude with tracing the water system involved looking for hydrologic hazards &ndash; specifically other potential sources of water that &hellip;">
+  <meta name="description" content="This is old hat by now, but I love how much cruft can be killed by outright avoiding older APIs.
+A unique location number needed to be generated for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/05/fun-with-sql-spatial/">Fun With SQL Spatial</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-05T19:43:00-08:00" pubdate data-updated="true">Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is old hat by now, but I love how much cruft can be killed by outright avoiding older APIs.<br/>
+A unique location number needed to be generated for an engineering design tool. A vendor contact sent an example to work off that was about 400 lines of C# code. This little stored procedure replaced basically all of it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="p">[</span><span class="n">sde</span><span class="p">].[</span><span class="n">IntersectGrid</span><span class="p">]</span>
+</span><span class='line'><span class="o">@</span><span class="n">x</span> <span class="nb">FLOAT</span><span class="p">,</span> <span class="o">@</span><span class="n">y</span> <span class="nb">FLOAT</span>
+</span><span class='line'><span class="k">AS</span> <span class="k">SET</span> <span class="n">NOCOUNT</span> <span class="k">ON</span>
+</span><span class='line'><span class="k">BEGIN</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">DECLARE</span> <span class="o">@</span><span class="k">g</span> <span class="n">geometry</span><span class="p">;</span>
+</span><span class='line'><span class="k">DECLARE</span> <span class="o">@</span><span class="n">grid</span> <span class="nb">int</span><span class="p">;</span>
+</span><span class='line'><span class="k">SET</span> <span class="o">@</span><span class="k">g</span> <span class="o">=</span> <span class="n">geometry</span><span class="p">::</span><span class="n">STPointFromText</span><span class="p">(</span><span class="s1">&#39;POINT (&#39;</span><span class="o">+</span><span class="n">str</span><span class="p">(</span><span class="o">@</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span> <span class="n">STR</span><span class="p">(</span><span class="o">@</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="k">SET</span> <span class="o">@</span><span class="n">grid</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>  <span class="k">SELECT</span> <span class="n">TOP</span> <span class="mi">1</span> <span class="p">[</span><span class="n">areaName</span><span class="p">]</span>
+</span><span class='line'>  <span class="k">FROM</span> <span class="n">GridTable</span>
+</span><span class='line'>  <span class="k">Where</span> <span class="o">@</span><span class="k">g</span><span class="p">.</span><span class="n">STWithin</span><span class="p">(</span><span class="n">Shape</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span>
+</span><span class='line'> <span class="p">)</span>
+</span><span class='line'><span class="k">return</span> <span class="o">@</span><span class="n">grid</span>
+</span><span class='line'><span class="k">END</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How do you make this 400 lines? Easy, use the ArcObject API to do the intersect. Instantiating dozens of objects, checking out/in licenses, and using reflection to read a config file (not sure why they didn&rsquo;t just use AppSettings) adds up fast.
+I could probably even do it with even less effort using <a href="http://trac.gispython.org/lab/wiki/Shapely">Shapely</a>, but no one else is really familiar with Python in this situation (vendors or coworkers).</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -190,6 +264,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/01/access-vs-validity-in-pragmatic-http-apis/">Access vs. Validity in Pragmatic HTTP APIs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/28/benefits-of-failure/">Some Benefits of Failure - Gallipoli</a>
       </li>
     
@@ -205,10 +283,6 @@
         <a href="/blog/2012/04/18/ai-slash-machine-learning-python-samples/">AI/Machine Learning Python Samples</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/02/07/spatial-correction-using-a-particle-filter/">Spatial Correction Using a Particle Filter</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -222,7 +296,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Ben Reilly -
+  Copyright &copy; 2014 - Ben Reilly -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

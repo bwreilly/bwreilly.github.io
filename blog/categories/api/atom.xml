@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: rest | Pragmatic Geographer]]></title>
-  <link href="http://bwreilly.github.io/blog/categories/rest/atom.xml" rel="self"/>
+  <title><![CDATA[Category: api | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://bwreilly.github.io/"/>
   <updated>2014-01-18T15:28:57-08:00</updated>
   <id>http://bwreilly.github.io/</id>

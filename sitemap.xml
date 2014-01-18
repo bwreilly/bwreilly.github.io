@@ -61,12 +61,18 @@
         <lastmod>2013-08-28T08:44:54-07:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://bwreilly.github.io/blog/2013/11/01/access-vs-validity-in-pragmatic-http-apis/
+        </loc>
+        <lastmod>2013-11-01T08:50:25-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://bwreilly.github.io/blog/archives/</loc>
-        <lastmod>2013-08-28T08:44:54-07:00</lastmod>
+        <lastmod>2013-11-01T08:50:25-07:00</lastmod>
     </url>
     <url>
         <loc>http://bwreilly.github.io/</loc>
-        <lastmod>2013-08-28T08:44:54-07:00</lastmod>
+        <lastmod>2013-11-01T08:50:25-07:00</lastmod>
     </url>
     <url>
         <loc>http://bwreilly.github.io/resume/</loc>
