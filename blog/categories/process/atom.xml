@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: process, | Pragmatic Geographer]]></title>
+  <link href="http://bwreilly.github.io/blog/categories/process/atom.xml" rel="self"/>
+  <link href="http://bwreilly.github.io/"/>
+  <updated>2014-04-14T22:29:16-07:00</updated>
+  <id>http://bwreilly.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Reilly]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Crunch Mode Does Not Work]]></title>
+    <link href="http://bwreilly.github.io/blog/2014/04/14/crunch-mode-does-not-work/"/>
+    <updated>2014-04-14T21:48:00-07:00</updated>
+    <id>http://bwreilly.github.io/blog/2014/04/14/crunch-mode-does-not-work</id>
+    <content type="html"><![CDATA[<blockquote><p><a href="http://chadfowler.com/blog/2014/01/22/the-crunch-mode-antipattern/">Killing the Crunch Mode Antipattern</a></p>
+
+<p>If you want a <a href="http://www.slideshare.net/leadandtransform/knowledge-worker-productivity">“knowledge worker”</a> to be as ineffective and produce the lowest level of quality possible, <a href="http://www.ncbi.nlm.nih.gov/books/NBK19958/">deprive them of their sleep</a> and hold them to an unrealistic deadline&hellip;.</p>
+
+<p><a href="http://legacy.igda.org/why-crunch-modes-doesnt-work-six-lessons">It makes people lazy and less productive</a>. This may seem ironic, but when someone puts in heroic levels of effort, they start to place less value on each minute.</p></blockquote>
+
+<p>The last crunch mode I experienced virtually none of the code could be reasonably salvaged. We did a reasonable review of the work and realized more than half would need to be significantly refactored.</p>
+
+<p>It turns out that there has been some study around when a project should be rewritten vs. being subject to an extensive refactoring. It does depend, but generally the cut-off is about 20-25% &ndash; if you need to change more than that, you are likely better off just rewriting it (<a href="http://www.cs.umd.edu/~basili/publications/journals/J70.pdf">Thomas, Delis, Basili, 1997</a>).</p>
+]]></content>
+  </entry>
+  
+</feed>
