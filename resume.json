@@ -1,0 +1,101 @@
+{
+  "basics": {
+    "name": "Ben Reilly",
+    "label": "Software Person",
+    "picture": "",
+    "email": "benwreilly@gmail.com",
+    "phone": "(253) 797-9306",
+    "website": "https://bwreilly.github.io",
+    "summary": "Professional software developer with more than eight years of experience with an analytical data science oriented background. I approach problems with curiosity, careful research, and thoughtful collaboration with colleagues.",
+    "location": {
+      "address": "",
+      "postalCode": "WA 98102",
+      "city": "Seattle",
+      "countryCode": "US",
+      "region": "Washington"
+    },
+    "profiles": [{
+      "network": "GitHub",
+      "username": "bwreilly",
+      "url": "https://github.com/bwreilly"
+    }, {
+      "network": "Twitter",
+      "username": "bwreilly",
+      "url": "http://twitter.com/bwreilly"
+    }, {
+      "network": "LinkedIn (ugh)",
+      "username": "ben-reilly",
+      "url": "https://www.linkedin.com/in/ben-reilly-8a06489/"
+    }]
+  },
+  "work": [{
+    "company": "Company",
+    "position": "President",
+    "website": "http://company.com",
+    "startDate": "2013-01-01",
+    "endDate": "2014-01-01",
+    "summary": "Description...",
+    "highlights": [
+      "Started the company"
+    ]
+  }],
+  "volunteer": [{
+    "organization": "Organization",
+    "position": "Volunteer",
+    "website": "http://organization.com/",
+    "startDate": "2012-01-01",
+    "endDate": "2013-01-01",
+    "summary": "Description...",
+    "highlights": [
+      "Awarded 'Volunteer of the Month'"
+    ]
+  }],
+  "education": [{
+    "institution": "University",
+    "area": "Software Development",
+    "studyType": "Bachelor",
+    "startDate": "2011-01-01",
+    "endDate": "2013-01-01",
+    "gpa": "4.0",
+    "courses": [
+      "DB1101 - Basic SQL"
+    ]
+  }],
+  "awards": [{
+    "title": "Award",
+    "date": "2014-11-01",
+    "awarder": "Company",
+    "summary": "There is no spoon."
+  }],
+  "publications": [{
+    "name": "Publication",
+    "publisher": "Company",
+    "releaseDate": "2014-10-01",
+    "website": "http://publication.com",
+    "summary": "Description..."
+  }],
+  "skills": [{
+    "name": "Web Development",
+    "level": "Master",
+    "keywords": [
+      "HTML",
+      "CSS",
+      "Javascript"
+    ]
+  }],
+  "languages": [{
+    "name": "English",
+    "level": "Native speaker"
+  }],
+  "interests": [{
+    "name": "Wildlife",
+    "keywords": [
+      "Ferrets",
+      "Unicorns"
+    ]
+  }],
+  "references": [{
+    "name": "Jane Doe",
+    "reference": "Reference..."
+  }]
+}
