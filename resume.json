@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Ben Reilly",
-    "label": "Software Person",
+    "label": "The Software Person You Are Looking For Maybe",
     "picture": "",
     "email": "benwreilly@gmail.com",
     "phone": "(253) 797-9306",
@@ -24,59 +24,181 @@
       "url": "http://twitter.com/bwreilly"
     }, {
       "network": "LinkedIn (ugh)",
-      "username": "ben-reilly",
+      "username": "Profile",
       "url": "https://www.linkedin.com/in/ben-reilly-8a06489/"
     }]
   },
   "work": [{
-    "company": "Company",
-    "position": "President",
-    "website": "http://company.com",
-    "startDate": "2013-01-01",
-    "endDate": "2014-01-01",
-    "summary": "Description...",
+    "company": "ReUP Distribution",
+    "position": "CTO",
+    "website": "https://reup.tech",
+    "startDate": "2015-10-01",
+    "endDate": "Present",
+    "summary": "ReUP is a B2B platform for i502 suppliers and retailers that simplifies the supply chain. - lowering costs and managing multi-supplier, multi-product transactions all on a single platform.",
     "highlights": [
-      "Started the company"
+    ]
+  }, {
+    "company": "Droneseed",
+    "position": "Interim CTO",
+    "website": "http://droneseed.co",
+    "startDate": "2016-02-01",
+    "endDate": "2016-07-01",
+    "summary": "Automated precision reforestation/forestry management with autonomous aerial vehicles.",
+    "highlights": [
+    ]
+  }, {
+    "company": "ClipCard",
+    "position": "Lead Engineer",
+    "website": "https://medium.com/@rc_says/we-made-this-we-re-proud-of-it-c95071e9b78",
+    "startDate": "2012-01-01",
+    "endDate": "2015-10-01",
+    "summary": "A personal search engine for all your stuff in Dropbox, GitHub, Evernote, JIRA, O365, etc.",
+    "highlights": [
+        "Design and construction of large scale, distributed ETL/indexing solution",
+        "Scaling, modeling, and optimization of search engine (Elasticsearch) and public API"
+    ]
+  }, {
+    "company": "Peninsula Light Power Company",
+    "position": "Software Developer/Database Adminstrator",
+    "website": "https://www.penlight.org",
+    "startDate": "2009-10-01",
+    "endDate": "2012-10-01",
+    "summary": "Not-for-profit rural power cooperative.",
+    "highlights": [
+        "Simplified outage management by combining numberous realtime data sources into one interface",
+        "Implemented software for load balancing/demand response in Smartgrid pilot project."
+    ]
+  }, {
+    "company": "Salt River Project",
+    "position": "Software Developer/Database Adminstrator",
+    "website": "http://srpnet.com",
+    "startDate": "2007-10-01",
+    "endDate": "2009-10-01",
+    "summary": "A utility cooperative that serves as the primary water provider for much of central Arizona, and an electrical utility for the Phoenix metropolitan area",
+    "highlights": [
+        "Created tool to generate highly accurate 24 hour water quality predictions for better contaminant mitigation",
+        "Eliminated haphazard static database with a dynamic tool, improving water hazard visibility for maintenance workers."
     ]
   }],
   "volunteer": [{
-    "organization": "Organization",
-    "position": "Volunteer",
-    "website": "http://organization.com/",
-    "startDate": "2012-01-01",
-    "endDate": "2013-01-01",
-    "summary": "Description...",
+    "organization": "Django Software Foundation",
+    "position": "Contributor",
+    "website": "https://www.djangoproject.com",
+    "startDate": "2014-03-15",
+    "endDate": "",
+    "summary": "The Web framework for perfectionists with deadlines.",
     "highlights": [
-      "Awarded 'Volunteer of the Month'"
+        "Prevented possible recursion limit issue in database migration planning (https://github.com/django/django/pull/3169)",
+        "Optimized index creation for many-to-many fields (https://code.djangoproject.com/ticket/22125)"
     ]
+  }, {
+    "organization": "Django Rest Framework",
+    "position": "Contributor",
+    "website": "http://www.django-rest-framework.org",
+    "startDate": "2013-09-08",
+    "endDate": "",
+    "summary": "Django REST framework is a powerful and flexible toolkit for building Web APIs.",
+    "highlights": [
+        "Implemented object level permissions and permission filtering (https://github.com/encode/django-rest-framework/pull/1093)"
+    ]
+  }, {
+    "organization": "NetworkX",
+    "position": "Contributor",
+    "website": "http://networkx.github.io/",
+    "startDate": "2012-04-12",
+    "endDate": "",
+    "summary": "NetworkX is a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.",
+    "highlights": [
+        "Support reading/writing ESRI Shapefiles (https://github.com/networkx/networkx/blob/master/networkx/readwrite/nx_shp.py)"
+    ]
+  }, {
+    "organization": "Random Hacks of Kindness",
+    "position": "Volunteer",
+    "website": "https://github.com/bwreilly/PersonFinder-Uploader",
+    "startDate": "2011-07-04",
+    "endDate": "2011-07-05",
+    "summary": "Simple python script to upload a CSV file to Google's People Finder",
+    "highlights": []
   }],
   "education": [{
-    "institution": "University",
-    "area": "Software Development",
-    "studyType": "Bachelor",
-    "startDate": "2011-01-01",
-    "endDate": "2013-01-01",
-    "gpa": "4.0",
+    "institution": "Central Washington University",
+    "area": "Environmental Resource Management",
+    "studyType": "Masters",
+    "startDate": "",
+    "endDate": "",
+    "gpa": "",
     "courses": [
-      "DB1101 - Basic SQL"
+    ]
+  }, {
+    "institution": "Central Washington University",
+    "area": "Geography",
+    "studyType": "Bachelor",
+    "startDate": "",
+    "endDate": "",
+    "gpa": "",
+    "courses": [
+    ]
+  }, {
+    "institution": "Central Washington University",
+    "area": "History",
+    "studyType": "Bachelor",
+    "startDate": "",
+    "endDate": "",
+    "gpa": "",
+    "courses": [
     ]
   }],
-  "awards": [{
-    "title": "Award",
-    "date": "2014-11-01",
-    "awarder": "Company",
-    "summary": "There is no spoon."
-  }],
+  "awards": [],
   "publications": [{
-    "name": "Publication",
-    "publisher": "Company",
-    "releaseDate": "2014-10-01",
-    "website": "http://publication.com",
-    "summary": "Description..."
+    "name": "garbage.today — an almost non-trivial AWS Lambda image search/host",
+    "publisher": "",
+    "releaseDate": "",
+    "website": "https://medium.com/@bwreilly/garbage-today-an-almost-non-trivial-aws-lambda-image-search-host-89c4de85eec8",
+    "summary": "Small weekend side project"
+  }, {
+    "name": "“I’m outraged! I’m going to write an app about this!”",
+    "publisher": "",
+    "releaseDate": "",
+    "website": "https://medium.com/@bwreilly/im-outraged-i-m-going-to-write-an-app-about-this-e4c86e856492",
+    "summary": "Don't jump to writing #resistance app - show up and talk to vulnerable/underrepresented people."
+  }, {
+    "name": "bwreilly.github.io",
+    "publisher": "",
+    "releaseDate": "",
+    "website": "http://bwreilly.github.io",
+    "summary": "My old blog"
   }],
   "skills": [{
-    "name": "Web Development",
+    "name": "Data management and ETL",
     "level": "Master",
+    "keywords": [
+      "Data transformation",
+      "Immutability",
+      "Validation",
+      "Scraping",
+      "Parallelization"
+    ]
+  }, {
+    "name": "Distributed Systems",
+    "level": "Experienced",
+    "keywords": [
+      "Apache Storm",
+      "Consistency levels",
+      "Queues",
+      "Concurrency"
+    ]
+  }, {
+    "name": "Data model/API design",
+    "level": "Proficient",
+    "keywords": [
+      "Normalization",
+      "REST",
+      "Abstraction",
+      "Composition"
+    ]
+  }, {
+    "name": "Frontend Web Development",
+    "level": "Experienced",
     "keywords": [
       "HTML",
       "CSS",
@@ -86,16 +208,5 @@
   "languages": [{
     "name": "English",
     "level": "Native speaker"
-  }],
-  "interests": [{
-    "name": "Wildlife",
-    "keywords": [
-      "Ferrets",
-      "Unicorns"
-    ]
-  }],
-  "references": [{
-    "name": "Jane Doe",
-    "reference": "Reference..."
   }]
 }
