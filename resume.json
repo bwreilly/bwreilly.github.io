@@ -81,6 +81,16 @@
     ]
   }],
   "volunteer": [{
+    "organization": "Airport Lawyer",
+    "position": "Contributor",
+    "website": "https://www.airportlawyer.org",
+    "startDate": "2017-02-03",
+    "endDate": "2017-02-07",
+    "summary": "We ensure immigrants are treated fairly at airports.",
+    "highlights": [
+        "Modest consulting on security and approach."
+    ]
+  }, {
     "organization": "Django Software Foundation",
     "position": "Contributor",
     "website": "https://www.djangoproject.com",
