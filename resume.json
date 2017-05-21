@@ -94,6 +94,16 @@
         "Modest consulting on security and approach."
     ]
   }, {
+    "organization": "Ada Development Academy",
+    "position": "Volunteer",
+    "website": "https://adadevelopersacademy.org",
+    "startDate": "2017-05-19",
+    "endDate": "",
+    "summary": "Ada Developers Academy is a training program located in Seattle, Washington for women and non-binary people who want to become software developers.",
+    "highlights": [
+        "Interview coaching"
+    ]
+  }, {
     "organization": "Django Software Foundation",
     "position": "Contributor",
     "website": "https://www.djangoproject.com",
