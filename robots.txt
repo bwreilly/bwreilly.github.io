@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://bwreilly.github.io/sitemap.xml 

@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "blog"
+version = "0.1.0"
+description = "Personal blog for Ben Reilly"
+authors = ["bwreilly <benjamin.reilly@pm.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pelican = "^4.9.1"
+Markdown = "^3.5.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
