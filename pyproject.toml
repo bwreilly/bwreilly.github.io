@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "blog"
+name = "bwreilly.github.io"
 version = "0.1.0"
 description = "Personal blog for Ben Reilly"
 authors = ["bwreilly <benjamin.reilly@pm.me>"]
